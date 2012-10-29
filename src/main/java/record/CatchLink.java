@@ -16,7 +16,7 @@ public class CatchLink extends CatchHtml {
 
 	public Set<String> links = new HashSet<String>();
 
-	public void parse() {
+	protected Set<String> parse() {
 		List<Pattern> list = new ArrayList<Pattern>();
 		list.add(srcPattern);
 		list.add(backgroundPattern);
@@ -24,8 +24,12 @@ public class CatchLink extends CatchHtml {
 		for (Pattern p : list) {
 			links.addAll(catchAttrs(p, result, 1));
 		}
-		for (String s : links) {
-		}
+		return links;
+	}
+
+	public Set<String> parseHTML(String result) {
+		this.result = result;
+		return parse();
 	}
 
 	public void output() {
