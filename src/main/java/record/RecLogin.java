@@ -69,17 +69,7 @@ public class RecLogin extends RecordTask implements IRecordTask {
 		return false;
 	}
 
-	public long getRandomSleepTime() {
-		return (long) (Math.random() * 300 + 200);
-	}
-	
-	public void sleep() {
-		try {
-			Thread.sleep(getRandomSleepTime());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	@Override
 	public boolean check() throws Exception {
