@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.nutz.lang.Strings;
+
 public class CatchForm extends CatchHtml {
-	
+
 	private List<String> inputs = new ArrayList<String>();
 	public Map<String, FormInput> form = new LinkedHashMap<String, FormInput>();
 	public String formuri;
@@ -66,9 +68,10 @@ public class CatchForm extends CatchHtml {
 		public static final String PASSWORD = "password";
 
 		public void parse(String str) {
-
-			name = catchAttr(inputPattern, str, 1);
-			value = catchAttr(inputValuePattern, str, 1);
+			String name = catchAttr(inputPattern, str, 1);
+			this.name = Strings.isEmpty(name) ? this.name : name;
+			String value = catchAttr(inputValuePattern, str, 1);
+			this.value = Strings.isEmpty(value) ? this.value : value;
 
 			if (hasClass()) {
 				if (hasPassword())

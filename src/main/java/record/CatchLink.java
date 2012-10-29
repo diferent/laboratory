@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 public class CatchLink extends CatchHtml {
-	
+
 	public Pattern hrefPattern = Pattern.compile(" href=\"([^\"]+)\"");
 	public Pattern srcPattern = Pattern.compile(" src=\"([^\"]+)\"");
 	public Pattern backgroundPattern = Pattern.compile(" src=\"([^\"]+)\"");
@@ -23,6 +23,8 @@ public class CatchLink extends CatchHtml {
 		list.add(hrefPattern);
 		for (Pattern p : list) {
 			links.addAll(catchAttrs(p, result, 1));
+		}
+		for (String s : links) {
 		}
 	}
 

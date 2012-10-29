@@ -96,7 +96,7 @@ public abstract class RecordTask implements IRecordTask {
 		CatchLink cl = new CatchLink();
 		cl.result = result;
 		cl.parse();
-		callCapillaries(cl.links);
+//		callCapillaries(cl.links);
 
 	}
 
@@ -106,6 +106,8 @@ public abstract class RecordTask implements IRecordTask {
 		List<Future<ResourceObject>> list = new ArrayList<Future<ResourceObject>>();
 		for (String s : links) {
 			try {
+				if (s.contains(".jsp")|| s.contains("#"))
+					continue;
 				URI uri = buildURI(s);
 				FetchResource fr = new FetchResource(uri);
 				Future<ResourceObject> f = pool.submit(fr);
