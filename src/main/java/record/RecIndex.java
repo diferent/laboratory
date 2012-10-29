@@ -1,6 +1,5 @@
 package record;
 
-
 import java.net.URI;
 
 import org.apache.http.Header;
@@ -26,6 +25,7 @@ public class RecIndex extends RecordTask {
 			result = http.fetchResultAsString();
 			fetchCookie();
 			if (check()) {
+				pushResult(result);
 				sleep();
 				return true;
 			} else

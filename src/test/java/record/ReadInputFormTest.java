@@ -23,7 +23,7 @@ public class ReadInputFormTest {
 			String result = null;
 			int line = 0;
 			while ((result = reader.readLine()) != null) {
-//				System.out.println("行号: " + (++line) + ",内容:" + result);
+				// System.out.println("行号: " + (++line) + ",内容:" + result);
 				buf.append(result);
 			}
 
@@ -45,6 +45,15 @@ public class ReadInputFormTest {
 	public void catchForm() {
 		CatchForm cf = new CatchForm();
 		cf.catchForm(result);
+	}
+
+	@Test
+	public void catchLinks() {
+		CatchLink cl = new CatchLink();
+		cl.result = result;
+		cl.parse();
+		cl.output();
+
 	}
 
 }
