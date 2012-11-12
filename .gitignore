@@ -1,8 +1,6 @@
-.svn/
-/WebContent/WEB-INF/classes/
-/build/classes/
-.settings/
-.project
-.classpath
-/WebContent/flex/
-/bin/
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
