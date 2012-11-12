@@ -25,12 +25,18 @@ public class RecordCatchResultTimeTest {
 
 	@Test
 	public void test() {
-		Matcher m = p.matcher(result);
+		Matcher m = ptime.matcher(result);
 		while (m.find()) {
 			System.out.println(m.group().substring(1));
 		}
+
+		m = pdate.matcher(result);
+		while (m.find()) {
+			System.out.println(m.group());
+		}
 	}
 
-	Pattern p = Pattern.compile("[^\"]\\d{2}:\\d{2}:\\d{2}");
+	Pattern ptime = Pattern.compile("[^\"]\\d{2}:\\d{2}:\\d{2}");
+	Pattern pdate = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
 
 }
