@@ -10,12 +10,14 @@ import java.util.regex.Pattern;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ly.global.SerInfo;
+
 public class RecordCatchResultTimeTest {
 	String result;
 
 	@Before
 	public void read() {
-		File file = new File("D:/", "attendance.html");
+		File file = new File(SerInfo.getProjectPath() + "/record", "attendance.html");
 		try {
 			result = ReaderFileInString.instance.read(file);
 		} catch (ViException e) {

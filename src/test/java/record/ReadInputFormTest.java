@@ -12,13 +12,17 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ly.global.SerInfo;
+
 public class ReadInputFormTest {
 
 	private String result;
 
 	@Before
 	public void read() {
-		File file = new File("D:/", "example.html");
+
+		File file = new File(SerInfo.getProjectPath() + "/record",
+				"example.html");
 		try {
 			result = ReaderFileInString.instance.read(file);
 		} catch (ViException e) {
