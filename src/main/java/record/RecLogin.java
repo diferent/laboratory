@@ -15,13 +15,28 @@ public class RecLogin extends RecordTask implements IRecordTask {
 	CatchForm cf;
 	UserContext user;
 
+	LoginType type = LoginType.Record;
+
+	public static enum LoginType {
+		Query, Record;
+	}
+
+	public RecLogin(UserContext user) {
+		super();
+		this.user = user;
+	}
+
+	public RecLogin() {
+		super();
+	}
+
 	@Override
 	public void doError() {
 
 	}
 
 	public Map<String, Object> fetchParam() {
-		Map<String, Object> p = new HashMap<>();
+		Map<String, Object> p = new HashMap<String, Object>();
 		for (Map.Entry<String, FormInput> entry : cf.form.entrySet()) {
 			FormInput fi = entry.getValue();
 			if (fi.isPassword)
@@ -61,15 +76,15 @@ public class RecLogin extends RecordTask implements IRecordTask {
 	public boolean start() {
 		try {
 			formCommit();
-			Thread.sleep(getRandomSleepTime());
-			formCommit();
+			if (LoginType.Record == type) {
+				Thread.sleep(getRandomSleepTime());
+				formCommit();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
-
-
 
 	@Override
 	public boolean check() throws Exception {

@@ -7,9 +7,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.nutz.lang.Strings;
+
 public class CatchForm extends CatchHtml {
+
 	private List<String> inputs = new ArrayList<String>();
-	public Map<String, FormInput> form = new LinkedHashMap<>();
+	public Map<String, FormInput> form = new LinkedHashMap<String, FormInput>();
 	public String formuri;
 	private Pattern pattern = Pattern.compile("<input [^>]+>");
 	private Pattern inputPattern = Pattern.compile(" name=\"([^\"]+)\"");
@@ -29,16 +32,15 @@ public class CatchForm extends CatchHtml {
 			matcher = formPattern.matcher(target);
 			if (matcher.find())
 				formString = matcher.group();
-			catchForm();
+			catchFormURI();
 		}
 
 	}
 
-	private void catchForm() {
+	private void catchFormURI() {
 		if (formString != null) {
-			matcher = actionPattern.matcher(formString);
-			if (matcher.find())
-				formuri = matcher.group(1);
+			formuri = catchAttr(actionPattern, formString, 1);
+			System.out.println("FORM URI : " + formuri);
 		}
 	}
 
@@ -46,7 +48,7 @@ public class CatchForm extends CatchHtml {
 		for (String s : inputs) {
 			FormInput fi = new FormInput();
 			fi.inputString = s;
-			fi.parse();
+			fi.parse(fi.inputString);
 			if (fi.name != null)
 				form.put(fi.name, fi);
 			System.out.println(fi);
@@ -64,13 +66,13 @@ public class CatchForm extends CatchHtml {
 		public String inputString;
 		public static final String CLASS = "class";
 		public static final String PASSWORD = "password";
-		public void parse() {
-			Matcher m = inputPattern.matcher(inputString);
-			if (m.find())
-				name = m.group(1);
-			m = inputValuePattern.matcher(inputString);
-			if (m.find())
-				value = m.group(1);
+
+		public void parse(String str) {
+			String name = catchAttr(inputPattern, str, 1);
+			this.name = Strings.isEmpty(name) ? this.name : name;
+			String value = catchAttr(inputValuePattern, str, 1);
+			this.value = Strings.isEmpty(value) ? this.value : value;
+
 			if (hasClass()) {
 				if (hasPassword())
 					isPassword = true;
